@@ -1,0 +1,46 @@
+{
+  "description": "WJH 126362 R1 retraining plan. Seeds are fixed in advance and are never selected by external-validation performance.",
+  "created": "2026-10-27",
+  "seeds_main": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51],
+  "seeds_ablation": [42, 43, 44, 45, 46],
+  "feature_sets": {
+    "base30": ["age", "gender", "BMI", "height", "weight",
+               "ALT", "AST", "ALP", "GGT", "TBIL", "DBIL", "Albumin", "INR",
+               "Creatinine", "Uric_Acid", "FBG", "TG", "TC", "HDL", "LDL", "HbA1c", "Platelet",
+               "Steatosis_Grade", "Lobular_Inflammation", "Ballooning", "NAS_Total",
+               "SAF_S", "SAF_A",
+               "Impaired_glucose_tolerance", "L_MAFLD"]
+  },
+  "histology_scores": ["Steatosis_Grade", "Lobular_Inflammation", "Ballooning", "NAS_Total", "SAF_S", "SAF_A"],
+  "overlap_baseline": ["TBIL", "DBIL", "Albumin", "INR"],
+  "overlap_longitudinal": ["TBIL", "Albumin", "INR"],
+  "nonliver_death_train_ids": ["20_25796", "20_44815", "23_45435", "23_61166", "24_22169",
+                               "25_01983", "L10_283", "L11_317"],
+  "experiments": {
+    "ref_mila":      {"comment": "MiLa reference (labs + mask)", "model": "m5", "variant": "labs_mask", "seeds": "main"},
+    "ref_m4":        {"comment": "M4 reference", "model": "m4", "seeds": "main"},
+    "ref_labonly":   {"comment": "MiLa lab-only (trajectory, no mask); reference for E1b", "model": "m5", "variant": "lab_only", "seeds": "ablation"},
+    "E1a_mila_nolong":   {"comment": "R1.1 same architecture as MiLa, longitudinal grid set to zero", "model": "m5", "variant": "labs_mask", "lab_mode": "zeros", "seeds": "ablation"},
+    "E1b_mila_lastonly": {"comment": "R1.1 latest pre-landmark value only (no trajectory), no mask", "model": "m5", "variant": "lab_only", "lab_mode": "last_only", "seeds": "ablation"},
+    "E2a_m4_fib":    {"comment": "R1.2 M4 + baseline fibrosis stage", "model": "m4", "add_features": ["Fibrosis_Stage"], "seeds": "ablation"},
+    "E2b_mila_fib":  {"comment": "R1.2 MiLa + baseline fibrosis stage", "model": "m5", "variant": "labs_mask", "add_features": ["Fibrosis_Stage"], "seeds": "ablation"},
+    "E3a_m4_nohist": {"comment": "R1.3 M4 without histological scores", "model": "m4", "drop_features": "histology_scores", "seeds": "ablation"},
+    "E3b_mila_nohist": {"comment": "R1.3 MiLa without histological scores", "model": "m5", "variant": "labs_mask", "drop_features": "histology_scores", "seeds": "ablation"},
+    "E4a_mila_nooverlap": {"comment": "R1.5 MiLa without TBIL/DBIL/Albumin/INR at baseline and TBIL/Albumin/INR longitudinally", "model": "m5", "variant": "labs_mask", "drop_features": "overlap_baseline", "drop_labs": "overlap_longitudinal", "seeds": "ablation"},
+    "E4b_mila_nooverlap_plt": {"comment": "R1.5 as E4a and also without platelet (baseline and longitudinal)", "model": "m5", "variant": "labs_mask", "drop_features": "overlap_baseline", "drop_labs": "overlap_longitudinal", "extra_drop": ["Platelet"], "seeds": "ablation"},
+    "E6_mila_excl_nonliverdeath": {"comment": "R1.4 MiLa retrained after excluding 8 training patients with non-liver death within 10 years", "model": "m5", "variant": "labs_mask", "exclude_train": "nonliver_death_train_ids", "seeds": "ablation"}
+  },
+  "comparisons": [
+    ["ref_mila", "ref_m4"],
+    ["ref_mila", "E1a_mila_nolong"],
+    ["ref_labonly", "E1b_mila_lastonly"],
+    ["E2b_mila_fib", "E2a_m4_fib"],
+    ["E2a_m4_fib", "ref_m4"],
+    ["E2b_mila_fib", "ref_mila"],
+    ["E3b_mila_nohist", "E3a_m4_nohist"],
+    ["ref_m4", "E3a_m4_nohist"],
+    ["ref_mila", "E4a_mila_nooverlap"],
+    ["ref_mila", "E4b_mila_nooverlap_plt"],
+    ["ref_mila", "E6_mila_excl_nonliverdeath"]
+  ]
+}

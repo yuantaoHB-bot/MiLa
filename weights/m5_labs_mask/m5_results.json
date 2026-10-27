@@ -1,0 +1,133 @@
+{
+  "model": "m5",
+  "data_dir": "dataset",
+  "wsi_feature_dir": "outputs/embeddings",
+  "output_dir": "outputs/models/m5_labs_mask",
+  "n_folds": 5,
+  "num_epochs": 60,
+  "batch_size": 16,
+  "lr": 0.0001,
+  "device": "cpu",
+  "seed": 42,
+  "use_clean_data": true,
+  "timestamp": "2026-05-05T15:02:52.478091",
+  "followup_mode": "annual_grid",
+  "annual_grid_years": 2,
+  "annual_grid_variant": "labs_mask",
+  "avg_auroc_5y": 0.8825441919191919,
+  "std_auroc_5y": 0.08123416657588507,
+  "avg_auroc_10y": 0.9418181818181818,
+  "std_auroc_10y": 0.03592462264793741,
+  "fold_results": [
+    {
+      "fold": 1,
+      "auroc_5y": 0.9595959595959596,
+      "auroc_10y": 0.9927272727272728,
+      "model_path": "outputs/models/m5_labs_mask/m5_fold1.pth",
+      "class_distribution": {
+        "train": {
+          "n_samples": 144,
+          "n_progression_5y": 16,
+          "n_nonprogression_5y": 128,
+          "n_progression_10y": 44,
+          "n_nonprogression_10y": 100
+        },
+        "val": {
+          "n_samples": 36,
+          "n_progression_5y": 3,
+          "n_nonprogression_5y": 33,
+          "n_progression_10y": 11,
+          "n_nonprogression_10y": 25
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "auroc_5y": 0.8984375,
+      "auroc_10y": 0.9272727272727272,
+      "model_path": "outputs/models/m5_labs_mask/m5_fold2.pth",
+      "class_distribution": {
+        "train": {
+          "n_samples": 144,
+          "n_progression_5y": 15,
+          "n_nonprogression_5y": 129,
+          "n_progression_10y": 44,
+          "n_nonprogression_10y": 100
+        },
+        "val": {
+          "n_samples": 36,
+          "n_progression_5y": 4,
+          "n_nonprogression_5y": 32,
+          "n_progression_10y": 11,
+          "n_nonprogression_10y": 25
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "auroc_5y": 0.7734375,
+      "auroc_10y": 0.9563636363636363,
+      "model_path": "outputs/models/m5_labs_mask/m5_fold3.pth",
+      "class_distribution": {
+        "train": {
+          "n_samples": 144,
+          "n_progression_5y": 15,
+          "n_nonprogression_5y": 129,
+          "n_progression_10y": 44,
+          "n_nonprogression_10y": 100
+        },
+        "val": {
+          "n_samples": 36,
+          "n_progression_5y": 4,
+          "n_nonprogression_5y": 32,
+          "n_progression_10y": 11,
+          "n_nonprogression_10y": 25
+        }
+      }
+    },
+    {
+      "fold": 4,
+      "auroc_5y": 0.8046875,
+      "auroc_10y": 0.9490909090909091,
+      "model_path": "outputs/models/m5_labs_mask/m5_fold4.pth",
+      "class_distribution": {
+        "train": {
+          "n_samples": 144,
+          "n_progression_5y": 15,
+          "n_nonprogression_5y": 129,
+          "n_progression_10y": 44,
+          "n_nonprogression_10y": 100
+        },
+        "val": {
+          "n_samples": 36,
+          "n_progression_5y": 4,
+          "n_nonprogression_5y": 32,
+          "n_progression_10y": 11,
+          "n_nonprogression_10y": 25
+        }
+      }
+    },
+    {
+      "fold": 5,
+      "auroc_5y": 0.9765625,
+      "auroc_10y": 0.8836363636363636,
+      "model_path": "outputs/models/m5_labs_mask/m5_fold5.pth",
+      "class_distribution": {
+        "train": {
+          "n_samples": 144,
+          "n_progression_5y": 15,
+          "n_nonprogression_5y": 129,
+          "n_progression_10y": 44,
+          "n_nonprogression_10y": 100
+        },
+        "val": {
+          "n_samples": 36,
+          "n_progression_5y": 4,
+          "n_nonprogression_5y": 32,
+          "n_progression_10y": 11,
+          "n_nonprogression_10y": 25
+        }
+      }
+    }
+  ]
+}
